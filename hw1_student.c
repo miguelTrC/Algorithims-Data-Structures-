@@ -17,7 +17,20 @@ void print_1D(int sz, int * arr){
 		- NULL if all elements of arr are greater or equal to thres. In this case it does not allocate any memory, and sets content of sz_res to 0.
 */
 int* get_scores_below(int thresh, int sz_arr, int * arr, int* sz_res){
-	// change code here to correct function implementation
+	// change code here to correct function implementation 
+	
+	int *dArray = malloc(sizeof(int) * sz_arr );
+	for (int counter = 0; counter < sz_arr; counter++)){
+		int temp = 1;
+		if(*arr[counter] < tresh){
+			dArray = realloc(dArray, temp);
+			*dArray[temp] = arr[counter];
+			temp++;
+		}
+		return &dArray;
+	}
+	
+	free(dArray);
 	return NULL;
 }
 
