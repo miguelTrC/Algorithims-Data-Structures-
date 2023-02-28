@@ -1,4 +1,3 @@
-// rename test
 compile:
 gcc -g bucket_sort.c list.c -lm
 run:
