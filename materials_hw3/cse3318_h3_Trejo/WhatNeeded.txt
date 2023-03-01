@@ -1,0 +1,9 @@
+This file will need to be zipped. 
+
+Create an array file(.txt)
+	it will look like: 
+
+	#
+	# # # # # #          //(6 numbers) 
+	
+Finish bucket_sort from file given 
