@@ -7,3 +7,6 @@ Create an array file(.txt)
 	# # # # # #          //(6 numbers) 
 	
 Finish bucket_sort from file given 
+
+
+May need to adjust file types onced finished and back onto Windows
