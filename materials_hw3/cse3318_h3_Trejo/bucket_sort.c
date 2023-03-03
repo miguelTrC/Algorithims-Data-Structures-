@@ -49,6 +49,23 @@ void print_array(int arr[], int N){
 void run1(){
 	// Fill in your code here. You should not write everything in this function.  
 	// Write some helper functions to separate the work.	
+	
+	//Steps from OneNote
+	// Read a file from the User
+	// open the file 
+	// read the file to get N (size of array)
+
+	// create a 1d array of size N
+	int *pArr[N]; 
+	for(int x=0; x<=N; x++){
+		pArr[x] = NULL; 
+	}
+	// put the elements from file into the array 
+	// print the array 
+	
+	// call bucket_sort
+		//This in itself will have other steps and function calls
+	// print array again (should be sorted now)
 	printf("\n-------run1 - this is a place holder. You need to edit this function.------ \n");
 }
 
