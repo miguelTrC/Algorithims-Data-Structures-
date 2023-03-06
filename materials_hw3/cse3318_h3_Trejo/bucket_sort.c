@@ -65,11 +65,11 @@ nodePT insert_sorted(nodePT L, int elem){
 
 // 
 void bucket_sort(int *arr, int N){
-/*	
+
 	nodePT B[N+1]; 
 	for(int x=0; x<N; x++){
 		B[x] = NULL;
-	} */
+	} 
 	
 	int min = arr[0];
 	int max = arr[0];
@@ -84,7 +84,26 @@ void bucket_sort(int *arr, int N){
 		}
 	}
 	
-	printf("\n\n\n HERERERE min:%d max:%d", min, max);
+	for(int x=0; x<N; x++){
+		
+		int floor = returnFloor(arr[x], min, max, N);
+		B[floor] = insert_sorted(B[floor], arr[x]);
+	}
+	
+	int count = 0; 
+	for(int x=0; x<N; x++){
+		nodePT current = B[x];
+
+		while(current != NULL){
+			arr[count] = current->data;
+			count++;
+			current = current->next;
+		}
+	
+	destroy_list(B[x]);
+	}
+	
+
 	
 	
 	
