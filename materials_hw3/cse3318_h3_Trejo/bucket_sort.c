@@ -27,17 +27,20 @@ void print_array(int arr[], int N);
 void run1();
 
 // my functions 
+/* Notes: seg fault caused during returnFloor, for files that have a repeating 
+		value, unable to finish fixing error before due date
+		 i did however code functions that would create the nodes
+		and insert into a link list, along with insertion sort 
+		of link list as nodes where inserted
+*/
 int returnFloor(int arrIdx, int min, int max, int N){
 
 	int floor; 
-	
-	printf("\n\n Printing the BucketArray \n\n");
 		
 	floor = (arrIdx - min) * N; 
 	floor = floor / (1 + max - min); 
 	
 	return floor; 
-	// delete printf progress checks 
 }
 
 
@@ -65,8 +68,9 @@ nodePT insert_sorted(nodePT L, int elem){
 
 // 
 void bucket_sort(int *arr, int N){
+// Try N+1? 
 
-	nodePT B[N+1]; 
+	nodePT B[N]; 
 	for(int x=0; x<N; x++){
 		B[x] = NULL;
 	} 
@@ -83,11 +87,17 @@ void bucket_sort(int *arr, int N){
 			max = arr[x];
 		}
 	}
+	printf("\n Min:%d  Max:%d \n\n", min, max);
 	
+	//testing N
+	printf("\n\n\n\n N = %d \n\n\n\n", N);
+	
+	int floor;
 	for(int x=0; x<N; x++){
 		
-		int floor = returnFloor(arr[x], min, max, N);
+		floor = returnFloor(arr[x], min, max, N);
 		B[floor] = insert_sorted(B[floor], arr[x]);
+		printf("\n %d has a floor of %d \n", arr[x], floor);
 	}
 	
 	int count = 0; 
@@ -162,20 +172,18 @@ void run1(){
 		fscanf(fp,"%d", &pArr[x]);
 	}
 	
+	printf("\n\n Before Bucket \n\n");
 	print_array(pArr, N);
-	
-	
-
-	
 	bucket_sort(pArr, N);
+	printf("\n\n After Bucket \n\n");
+	print_array(pArr, N);
 	
 
 	
 	// call bucket_sort
 		//This in itself will have other steps and function calls
 	// print array again (should be sorted now)
-	printf("\n-------run1 - this is a place holder. You need to edit this function.------ \n");
-	
+
 	fclose(fp);
 	free(pArr);
 }
