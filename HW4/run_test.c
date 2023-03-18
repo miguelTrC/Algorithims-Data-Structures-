@@ -11,7 +11,7 @@ int main(){
 	FILE * fp = fopen(filename, "r"); 
 	if (fp == NULL){
 		printf("Unable to open file \n");
-		//return; 
+		return EXIT_FAILURE; 
 		} 
 	
 	// array that's only purpose is to hold N value, till transferred to int N;
@@ -19,6 +19,10 @@ int main(){
 	fscanf(fp, "%d", &tempN[0]); 
 	int N = tempN[0];
 	int *arr = malloc(N * sizeof(int));
+	
+	//can delete printf
+	printf("\nN = %d\n", N);
+	
 	
 	for(int x = 0; x<N; x++){
 		fscanf(fp, "%d", &arr[x]);
