@@ -27,7 +27,12 @@ void print_heap(struct heap_struct heapS){
 
 
 void swim_up(int idx, int * arr){
-	// write your code here
+	// given array and indx 
+	// (indx - 1 ) / 2, will always give child -> parent
+	while( (indx > 0) && (arr[indx] > arr[(indx - 1) / 2]))
+		
+		//swap arr[indx] and arr[(indx - 1) / 2] 
+		indx = indx / 2; 
 }
 
 
