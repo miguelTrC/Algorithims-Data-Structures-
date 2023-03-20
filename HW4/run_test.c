@@ -33,23 +33,28 @@ int main(){
 	// will hold the value that will be push/pop line 3 & 4
 	int p;
 	char op[10]; 
+	int castInt;
 	
 	fscanf(fp, "%d", &tempN[0]); 
 	p = tempN[0]; 
+	
 	
 	for(int x = 0; x<p; x++){
 		fscanf(fp, "%s", op)
 		// how to tell if its a int or a p, P, *? 
 			// Use AISC? 
 		
-		if( (op == 'P') || (op == 'p')){
-			//
+		if( (strcmp("P", op) == 0) || (strcmp("p", op) == 0) ){
+			printf("\n Indx:%d peek %s \n", x, op);
 		}
-		else if(op == '*'){
+		if( (strcmp("*", op) == 0) ){
 			// pop 
+			printf("\n Indx:%d peek %s \n", x,op);
+			
 		}
 		else{
-			// assume its a int 
+			castInt = atoi(op); 
+			printf("\n Indx:%d int %d \n", x, castInt);
 		}
 	}
 	
