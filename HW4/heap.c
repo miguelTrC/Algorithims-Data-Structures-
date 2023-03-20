@@ -14,13 +14,15 @@ struct heap_struct make_heap_empty(int cap){
 
 struct heap_struct make_heap(int N, int * arr){
 
-	// struct heap_struct NAME = malloc() 
-	// items = &arr; 
+	// struct heap_struct NAME = malloc()   // name it heaps
+	// items = &arr;  malloc
 	// N = N;  / or N = N-1? 
 	// ^ same thing for capacity 
 
 	// heap will be size of N 
 	// organize array and then turn to heap?
+	
+	// organize array before heap 
 }
 
 
