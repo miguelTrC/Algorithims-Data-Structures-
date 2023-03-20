@@ -7,14 +7,22 @@
 //#define DEBUG 0
 
 
-/*
+
 // uncomment and write your code
 struct heap_struct make_heap_empty(int cap){
 }
 
 struct heap_struct make_heap(int N, int * arr){
+
+	// struct heap_struct NAME = malloc() 
+	// items = &arr; 
+	// N = N;  / or N = N-1? 
+	// ^ same thing for capacity 
+
+	// heap will be size of N 
+	// organize array and then turn to heap?
 }
-*/
+
 
 //my function 
 int swap(int *a, int idxOne, int idxTwo){
@@ -54,6 +62,10 @@ void sink_down(int i, int N, int * arr){
 
 void add(struct heap_struct * heapP, int new_item){
 	// write your code here
+	
+	
+	// inserts new items to heap, if heap is full, resize to 2x its current size
+	
 }
 
 // Returns (but does not remove) element with largest key 
@@ -68,4 +80,7 @@ int poll(struct heap_struct * heapP){
 	printf("\npoll placeholder, returns -1\n");
 	return -1;
 }
+
+// key == value 
+// N is size and indx of last item in slides (1 to N on slides) (0 to N-1 for HW)
 
