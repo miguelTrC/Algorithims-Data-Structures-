@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(){
 	
@@ -40,7 +41,7 @@ int main(){
 	
 	
 	for(int x = 0; x<p; x++){
-		fscanf(fp, "%s", op)
+		fscanf(fp, "%s", op);
 		// how to tell if its a int or a p, P, *? 
 			// Use AISC? 
 		
@@ -49,7 +50,7 @@ int main(){
 		}
 		if( (strcmp("*", op) == 0) ){
 			// pop 
-			printf("\n Indx:%d peek %s \n", x,op);
+			printf("\n Indx:%d pop %s \n", x,op);
 			
 		}
 		else{
