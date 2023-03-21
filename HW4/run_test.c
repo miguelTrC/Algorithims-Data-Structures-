@@ -42,7 +42,7 @@ int main(){
 	
 	for(int x = 0; x<p; x++){
 		fscanf(fp, "%s", op);
-		// how to tell if its a int or a p, P, *? 
+		// how to tell if its a int or a p, P, *?   
 		
 		if( (strcmp("P", op) == 0) || (strcmp("p", op) == 0) ){
 			printf("\n Indx:%d peek %s \n", x, op);
