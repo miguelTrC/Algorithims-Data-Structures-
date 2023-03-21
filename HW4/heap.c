@@ -14,13 +14,15 @@ struct heap_struct make_heap_empty(int cap){
 
 struct heap_struct make_heap(int N, int * arr){
 
+	struct heap_struct heapS;
+	heapS.items = malloc(N * sizeof(int)); 
+	heapS.N = (N-1); // bc starting at indx[0]?
+	
 	// struct heap_struct NAME = malloc()   // name it heaps
 	// items = &arr;  malloc
 	// N = N;  / or N = N-1? 
 	// ^ same thing for capacity 
 
-	// heap will be size of N 
-	// organize array and then turn to heap?
 	
 	// organize array before heap 
 }
@@ -60,6 +62,13 @@ void sink_down(int i, int N, int * arr){
 	// i = parent 
 	int left = (i * 2) + 1; 
 	int right = (i * 2) + 2;
+	// indx of max val (contains largest value)
+	// while (MaxVal isn't 'parent && parent isn't larger than N)
+		//swap arr[IdxmaxVal], and arr[i]
+		// p = indxMaxVal 
+		// left = (i * 2) + 1;
+		// right = (i * 2) + 2;
+		// get IdxMaxVal
 }
 
 void add(struct heap_struct * heapP, int new_item){
