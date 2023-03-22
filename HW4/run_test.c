@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "heap.h"
 
 int main(){
 	
@@ -22,14 +23,20 @@ int main(){
 	int *arr = malloc(N * sizeof(int));
 	
 	//can delete printf
-	printf("\nN = %d\n", N);
+	//printf("\nN = %d\n", N);
 	
 	// Setting array equal to line 2 of file 
 	for(int x = 0; x<N; x++){
 		fscanf(fp, "%d", &arr[x]);
 		// delete printf, using to make sure its working 
-			printf("\n\n array %d = %d", x, arr[x]);
+			//printf("\n\n array %d = %d", x, arr[x]);
 	}
+	
+	//making heap
+	struct heap_struct myHeap = make_heap(N, arr);
+	
+	
+	
 	
 	// will hold the value that will be push/pop line 3 & 4
 	int p;
@@ -45,16 +52,16 @@ int main(){
 		// how to tell if its a int or a p, P, *?   
 		
 		if( (strcmp("P", op) == 0) || (strcmp("p", op) == 0) ){
-			printf("\n Indx:%d peek %s \n", x, op);
+			//printf("\n Indx:%d peek %s \n", x, op);
 		}
 		if( (strcmp("*", op) == 0) ){
 			// pop 
-			printf("\n Indx:%d pop %s \n", x,op);
+			//printf("\n Indx:%d pop %s \n", x,op);
 			
 		}
 		else{
 			castInt = atoi(op); 
-			printf("\n Indx:%d int %d \n", x, castInt);
+			//printf("\n Indx:%d int %d \n", x, castInt);
 		}
 	}
 	

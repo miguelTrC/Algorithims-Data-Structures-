@@ -33,15 +33,15 @@ struct heap_struct make_heap(int N, int * arr){
 	
 	
 	if (DEBUG){
-		printf("In fucntion make_heap, in DEBUG MODE, printing array BEFORE it 			        				gets turned into heap: \n");
+		printf("\nIn fucntion make_heap, in DEBUG MODE, printing array BEFORE it 			        				gets turned into heap: \n");
 		print_heap(heapS);
 	}
-	
-	for(int x= (N/2) - 1; x>=0; x--){
+		// (N/2) - 1 
+	for(int x= (N-1)/2; x>=0; x--){
 		sink_down(x, N, arr);
 		
 		if(DEBUG){
-			printf("In fucntion make_heap, in DEBUG MODE, printing array after 						sink_down at index %d \n", x);
+			printf("\nIn fucntion make_heap, in DEBUG MODE, printing array after 						sink_down at index %d \n", x);
 			print_heap(heapS);
 		}
 	}
@@ -85,16 +85,17 @@ void destroy(struct heap_struct * heapP){
 
 void print_heap(struct heap_struct heapS){
 	
-	printf("Heap array:%d, Capacity:%d\n", heapS.N, heapS.capacity);
+	printf("\nHeap array:%3d, Capacity:%3d\n", heapS.N, heapS.capacity);
 	printf("index: ");
 	for(int x=0; x<heapS.N; x++){
-		printf("%d ", x);
+		printf("%5d ", x);
 	} 
 	
-	printf("\n value: ");
+	printf("\nvalue: ");
 	for(int x=0; x<heapS.N; x++){
-		printf(" %d,", heapS.items[x]);
+		printf(" %5d,", heapS.items[x]);
 	}
+	printf("\n");
 }
 
 
