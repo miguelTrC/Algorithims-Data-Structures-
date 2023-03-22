@@ -53,15 +53,18 @@ int main(){
 		
 		if( (strcmp("P", op) == 0) || (strcmp("p", op) == 0) ){
 			//printf("\n Indx:%d peek %s \n", x, op);
+			peek(&myHeap);
 		}
 		if( (strcmp("*", op) == 0) ){
 			// pop 
 			//printf("\n Indx:%d pop %s \n", x,op);
+			poll(&myHeap);
 			
 		}
 		else{
 			castInt = atoi(op); 
 			//printf("\n Indx:%d int %d \n", x, castInt);
+			add(&myHeap, castInt);
 		}
 	}
 	
