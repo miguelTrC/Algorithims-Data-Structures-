@@ -1,3 +1,5 @@
+// Miguel Trejo 
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,14 +24,9 @@ int main(){
 	int N = tempN[0];
 	int *arr = malloc(N * sizeof(int));
 	
-	//can delete printf
-	//printf("\nN = %d\n", N);
-	
 	// Setting array equal to line 2 of file 
 	for(int x = 0; x<N; x++){
 		fscanf(fp, "%d", &arr[x]);
-		// delete printf, using to make sure its working 
-			//printf("\n\n array %d = %d", x, arr[x]);
 	}
 	
 	//making heap
@@ -46,31 +43,24 @@ int main(){
 	fscanf(fp, "%d", &tempN[0]); 
 	p = tempN[0]; 
 	
-	
 	for(int x = 0; x<p; x++){
 		fscanf(fp, "%s", op);
-		// how to tell if its a int or a p, P, *?   
 		
 		if( (strcmp("P", op) == 0) || (strcmp("p", op) == 0) ){
-			//printf("\n Indx:%d peek %s \n", x, op);
 			peek(myHeap);
 		}
 		if( (strcmp("*", op) == 0) ){
-			// pop 
-			//printf("\n Indx:%d pop %s \n", x,op);
 			poll(&myHeap);
-			
 		}
 		else{
 			castInt = atoi(op); 
-			//printf("\n Indx:%d int %d \n", x, castInt);
 			add(&myHeap, castInt);
 		}
 	}
 	
+	free(fp);
+	free(arr);
 	destroy(&myHeap);
-		
-	//free() will be used in one of the functions from heap
 	
 	return EXIT_SUCCESS;
 }

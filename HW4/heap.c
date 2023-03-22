@@ -1,3 +1,4 @@
+//Miguel Trejo
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -26,12 +27,7 @@ struct heap_struct make_heap(int N, int * arr){
 	heapS.items = arr;
 	heapS.N = N; 
 	heapS.capacity = N;
-	
-
-	
-	// organize array before heap 
-	
-	
+		
 	if (DEBUG){
 		printf("\nIn fucntion make_heap, in DEBUG MODE, printing array BEFORE it 			        				gets turned into heap: \n");
 		print_heap(heapS);
@@ -61,7 +57,7 @@ int swap(int *a, int idxOne, int idxTwo){
 }
 
 int indxOfMaxValue(int *A, int p, int left, int right, int N){
-	// p == parent? 
+	// p == parent
 	int imv = p; 
 	if( (left <= N) && (A[left] > A[imv]) ){
 		imv = left; 
