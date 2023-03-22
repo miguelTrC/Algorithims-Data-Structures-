@@ -53,7 +53,7 @@ int main(){
 		
 		if( (strcmp("P", op) == 0) || (strcmp("p", op) == 0) ){
 			//printf("\n Indx:%d peek %s \n", x, op);
-			peek(&myHeap);
+			peek(myHeap);
 		}
 		if( (strcmp("*", op) == 0) ){
 			// pop 
@@ -68,7 +68,7 @@ int main(){
 		}
 	}
 	
-		
+	destroy(&myHeap);
 		
 	//free() will be used in one of the functions from heap
 	
