@@ -33,7 +33,13 @@ Parameters:
 Return:  the value of the edit distance
 */
 int edit_distance(char * first_string, char * second_string, int print_table){
-    return -1;  // replace this line with your code
+    if(print_table == 1){
+    	//(print filled table of calculations)
+    }
+    else{
+    	//don't print table
+    }
+    return -1;  // edit distance
 }
 
 /*
