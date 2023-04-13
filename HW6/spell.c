@@ -22,6 +22,13 @@ Student answer:  Theta(............)
 
 
 /* Write helper functions here */
+int createTable(int rows, int colums){
+	//allocate for int double pointer
+	
+	//Fill? 
+	
+	//return int ** 
+}
 
 
 /*
@@ -35,6 +42,12 @@ Return:  the value of the edit distance
 int edit_distance(char * first_string, char * second_string, int print_table){
     if(print_table == 1){
     	//(print filled table of calculations)
+    	int strOne = strlen(first_string); 
+    	int strTwo = strlen(second_string); 
+    	int **table = NULL; 
+    	//table = (int*)malloc(strOne*(sizeof(int)));
+    	
+    	//table[] = (int*)malloc(strTwo*(sizeof(int)));
     }
     else{
     	//don't print table
@@ -50,5 +63,10 @@ Behavior: If any of the files cannot be open displays a message and returns. (Do
 */
 void spell_check(char * testname, char * dictname){
     // Write your code here
+    /* 1st file is dictionary 
+    	2nd is the word(s) looking for
+    	find the what is most similiar to the word(s) 
+    	//least amount of edit distance
+    */
 }
 
