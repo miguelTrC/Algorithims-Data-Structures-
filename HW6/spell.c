@@ -66,27 +66,42 @@ void fillTable (int **table, char *stringOne, int *stringTwo, int lenOne, int le
 	int x; 
 	int y;
 	int current;
+	int min; 
 	for(y = 0; y < lenOne; y++){
 		for(x = 0; x < lenTwo; x++){
 			
-			
-			if(y = 0){ //  Diagonal and Top unavailable
-				if(x = 0){ // Left unavailable //Only current
-					if(stringOne[x] != stringTwo[x]){
+			if(stringOne[x] != stringTwo[x]){ // ASCII comparison 
 						current = 1; 
 					}
 					else{
 						current = 0; 
-					}
-						
+					} 
+			
+			if(y = 0){ //  Diagonal and Top unavailable
+				if(x = 0){ // Left unavailable //Only current
+					table[y][x] = current; 
 				}
+					table[y][x] = (table[y][x-1] + current); //Left + Current
+			}
+			
+			if(x = 0){ // if y!=0 but x=0, Left & Diagonal not available 
+				//Using top, for all min() parameters
+				min = min(table[y-1][x], table[y-1][x], table[y-1][x]);
+				table[y][x] = (min + current);
+			}
+			else{ // all values available
+				min = min(table[y-1][x-1], table[y-1][x], table[y][x-1]); 
+				table[y][x] = (min + current);
+				
 			}
 			
 			
+		
 			
-			table[y][x] = 
+			
 		}
 	}
+	
 	
 }
 
