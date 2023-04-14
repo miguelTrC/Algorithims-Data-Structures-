@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+// COMPUTE TC USING VARIABLE FROM HW6 PAGE
 #include "spell.h"
 
 /*  Suggestions
@@ -41,7 +41,7 @@ void freeTable(int **table, int rows){
 	free(table); 
 }
 
-//printTable? 
+//printTable? YES
 
 
 /*
@@ -54,13 +54,13 @@ Return:  the value of the edit distance
 */
 int edit_distance(char * first_string, char * second_string, int print_table){
     if(print_table == 1){
-    	//(print filled table of calculations)
-    	int strOne = strlen(first_string);   //strOne == rows
-    	int strTwo = strlen(second_string);  // strTwo == colums
-    	int **table = NULL; 
-    	//table = (int*)malloc(strOne*(sizeof(int)));
+    	//(print filled table of calculations) //+1 for the '/0'
+    	int strOne = strlen(first_string)+1;   //strOne == rows
+    	int strTwo = strlen(second_string)+1;  // strTwo == colums
     	
-    	//table[] = (int*)malloc(strTwo*(sizeof(int)));
+    	int **table = createTable(strOne, strTwo); 
+    	
+    	
     }
     else{
     	//don't print table
