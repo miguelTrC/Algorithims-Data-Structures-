@@ -62,10 +62,29 @@ int min(int diagonal, int top, int left){
 
 void fillTable (int **table, char *stringOne, int *stringTwo, int lenOne, int lenTwo){
 	//stringOne == rows(y),  stringTwo == colums(x) 
-	
-	for(int y = 0; y < lenOne; y++){
-		for(int x = 0; x < lenTwo; x++){
-			// testing if assigned values stay	
+	// NEED TO ADD THE '/0'
+	int x; 
+	int y;
+	int current;
+	for(y = 0; y < lenOne; y++){
+		for(x = 0; x < lenTwo; x++){
+			
+			
+			if(y = 0){ //  Diagonal and Top unavailable
+				if(x = 0){ // Left unavailable //Only current
+					if(stringOne[x] != stringTwo[x]){
+						current = 1; 
+					}
+					else{
+						current = 0; 
+					}
+						
+				}
+			}
+			
+			
+			
+			table[y][x] = 
 		}
 	}
 	
