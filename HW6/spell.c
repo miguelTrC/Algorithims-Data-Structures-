@@ -59,7 +59,7 @@ int min(int diagonal, int top, int left){
 
 
 
-
+// CHANGE TO int()? to return the last value?
 void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int lenTwo){
 	//stringOne == rows(y),  stringTwo == colums(x) 
 	// NEED TO ADD THE '/0', WIll be during printTable
