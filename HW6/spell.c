@@ -27,7 +27,7 @@ int **createTable(int rows, int colums){ //int **createTable?
 	int **array = NULL; 
 	
 	array = (int**) malloc(rows*(sizeof(int)));
-	for(int x=0; x<rows; x++){
+	for(int x = 0; x < rows; x++){
 		array[x] = (int*) malloc(colums*(sizeof(int)));
 	}
 	
@@ -35,7 +35,7 @@ int **createTable(int rows, int colums){ //int **createTable?
 }
 
 void freeTable(int **table, int rows){
-	for(int x=0; x<rows; x++){
+	for(int x = 0; x < rows; x++){
 		free(table[x]);
 	}
 	free(table); 
@@ -58,6 +58,23 @@ int min(int diagonal, int top, int left){
 }
 
 
+
+
+void fillTable (int **table, char *stringOne, int *stringTwo, int lenOne, int lenTwo){
+	//stringOne == rows(y),  stringTwo == colums(x) 
+	
+	for(int y = 0; y < lenOne; y++){
+		for(int x = 0; x < lenTwo; x++){
+			// testing if assigned values stay	
+		}
+	}
+	
+}
+
+
+
+
+
 /*
 Parameters:
   - first_string - pointer to the first string (displayed vertical in the table)
@@ -74,6 +91,8 @@ int edit_distance(char * first_string, char * second_string, int print_table){
     	
     	int **table = createTable(strOne, strTwo); 
     	// make a function to fill table? call it in both if/else
+    	
+    	
     	
     }
     else{
