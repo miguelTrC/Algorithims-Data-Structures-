@@ -43,6 +43,20 @@ void freeTable(int **table, int rows){
 
 //printTable? YES
 
+//if y=0, left + current (inside the algorithim for computing)
+	// diagonal == array[y-1][x-1], top == arr[y-1][x], left == arr[y][x-1]
+int min(int diagonal, int top, int left){
+	int min = top; 
+	if(diagonal < min){
+		min = diagonal;
+	}
+	if(left < min){
+		min = left;
+	}
+	
+	return min; 
+}
+
 
 /*
 Parameters:
@@ -59,7 +73,7 @@ int edit_distance(char * first_string, char * second_string, int print_table){
     	int strTwo = strlen(second_string)+1;  // strTwo == colums
     	
     	int **table = createTable(strOne, strTwo); 
-    	
+    	// make a function to fill table? call it in both if/else
     	
     }
     else{
