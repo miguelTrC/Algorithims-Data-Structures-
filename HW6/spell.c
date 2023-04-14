@@ -22,13 +22,27 @@ Student answer:  Theta(............)
 
 
 /* Write helper functions here */
-int createTable(int rows, int colums){
-	//allocate for int double pointer
+int **createTable(int rows, int colums){ //int **createTable? 
+	//allocate for int double pointe
+	int **array = NULL; 
 	
+	/*array = (int*) malloc(rows*(sizeof(int)));
+	for(int x=0; x<rows; x++){
+		array[x] = (int*) malloc(colums*(sizeof(int)));
+	}*/
 	//Fill? 
 	
-	//return int ** 
+	return (array);
 }
+
+void freeTable(int **table, int rows){
+	for(int x=0; x<rows; x++){
+		free(table[x]);
+	}
+	free(table); 
+}
+
+//printTable? 
 
 
 /*
@@ -43,7 +57,7 @@ int edit_distance(char * first_string, char * second_string, int print_table){
     if(print_table == 1){
     	//(print filled table of calculations)
     	int strOne = strlen(first_string); 
-    	int strTwo = strlen(second_string); 
+    	int strTwo = strlen(second_string);  // strTwo == colums
     	int **table = NULL; 
     	//table = (int*)malloc(strOne*(sizeof(int)));
     	
