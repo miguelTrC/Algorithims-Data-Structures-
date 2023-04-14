@@ -26,11 +26,10 @@ int **createTable(int rows, int colums){ //int **createTable?
 	//allocate for int double pointe
 	int **array = NULL; 
 	
-	/*array = (int*) malloc(rows*(sizeof(int)));
+	array = (int**) malloc(rows*(sizeof(int)));
 	for(int x=0; x<rows; x++){
 		array[x] = (int*) malloc(colums*(sizeof(int)));
-	}*/
-	//Fill? 
+	}
 	
 	return (array);
 }
@@ -56,7 +55,7 @@ Return:  the value of the edit distance
 int edit_distance(char * first_string, char * second_string, int print_table){
     if(print_table == 1){
     	//(print filled table of calculations)
-    	int strOne = strlen(first_string); 
+    	int strOne = strlen(first_string);   //strOne == rows
     	int strTwo = strlen(second_string);  // strTwo == colums
     	int **table = NULL; 
     	//table = (int*)malloc(strOne*(sizeof(int)));
