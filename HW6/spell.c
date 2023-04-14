@@ -60,13 +60,13 @@ int min(int diagonal, int top, int left){
 
 
 
-void fillTable (int **table, char *stringOne, int *stringTwo, int lenOne, int lenTwo){
+void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int lenTwo){
 	//stringOne == rows(y),  stringTwo == colums(x) 
-	// NEED TO ADD THE '/0'
+	// NEED TO ADD THE '/0', WIll be during printTable
 	int x; 
 	int y;
 	int current;
-	int min; 
+	int minVal; 
 	for(y = 0; y < lenOne; y++){
 		for(x = 0; x < lenTwo; x++){
 			
@@ -86,12 +86,12 @@ void fillTable (int **table, char *stringOne, int *stringTwo, int lenOne, int le
 			
 			if(x = 0){ // if y!=0 but x=0, Left & Diagonal not available 
 				//Using top, for all min() parameters
-				min = min(table[y-1][x], table[y-1][x], table[y-1][x]);
-				table[y][x] = (min + current);
+				minVal = min(table[y-1][x], table[y-1][x], table[y-1][x]);
+				table[y][x] = (minVal + current);
 			}
 			else{ // all values available
-				min = min(table[y-1][x-1], table[y-1][x], table[y][x-1]); 
-				table[y][x] = (min + current);
+				minVal = min(table[y-1][x-1], table[y-1][x], table[y][x-1]); 
+				table[y][x] = (minVal + current);
 				
 			}
 			
@@ -126,13 +126,19 @@ int edit_distance(char * first_string, char * second_string, int print_table){
     	int **table = createTable(strOne, strTwo); 
     	// make a function to fill table? call it in both if/else
     	
-    	
+    	fillTable(table, first_string, second_string, strOne, strTwo);
     	
     }
     else{
     	//don't print table
+    	int strOne = strlen(first_string)+1;   //strOne == rows
+    	int strTwo = strlen(second_string)+1;  // strTwo == colums
+    	
+    	int **table = createTable(strOne, strTwo); 
+    	
+    	fillTable(table, first_string, second_string, strOne, strTwo);
     }
-    return -1;  // edit distance
+    return -1;  // edit distance // return last indx
 }
 
 /*
