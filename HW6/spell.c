@@ -81,10 +81,8 @@ void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int l
 					table[y][x] = current; 
 				}
 					table[y][x] = (table[y][x-1] + current); //Left + Current
-			}
-			
-			
-			if(x == 0){ // if y!=0 but x=0, Left & Diagonal not available 
+			}		
+			else if(x == 0){ // if y!=0 but x=0, Left & Diagonal not available 
 				//Using top, for all min() parameters
 				minVal = min(table[y-1][x], table[y-1][x], table[y-1][x]);
 				table[y][x] = (minVal + current);
@@ -95,8 +93,6 @@ void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int l
 				
 			}
 			
-			// Am I storing values correctly to array? or am i storing ints to 
-			//	memory addreses?
 			
 			
 		}
