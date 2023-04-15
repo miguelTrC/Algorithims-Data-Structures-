@@ -93,10 +93,8 @@ void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int l
 				
 			}
 			
-			
-			
+				
 		}
-		printf(" %d ", table[y][x]);
 	}
 	
 	
@@ -122,6 +120,8 @@ int edit_distance(char * first_string, char * second_string, int print_table){
     	int **table = createTable(strOne, strTwo); 
     	// make a function to fill table? call it in both if/else
     	fillTable(table, first_string, second_string, strOne, strTwo);
+    	int editDistance = table[strOne-1][strTwo-1];
+    	freeTable(table, strOne);
     	
     if(print_table == 1){
     	//(print filled table of calculations) //+1 for the '/0'
@@ -132,7 +132,7 @@ int edit_distance(char * first_string, char * second_string, int print_table){
     	//don't print table
     } //try +1?
     // getting seg fault at return (UNLESS i do -1)
-    return (table[strOne-1][strTwo-1]);  // edit distance // return last indx
+    return editDistance;  // edit distance // return last indx
 }
 
 /*
