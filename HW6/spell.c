@@ -22,11 +22,10 @@ Student answer:  Theta(............)
 
 
 /* Write helper functions here */
-int **createTable(int rows, int colums){ //int **createTable? 
-	//allocate for int double pointe
+int **createTable(int rows, int colums){
 	int **array = NULL; 
-	
-	array = (int**) malloc(rows*(sizeof(int)));
+							// allocating sizeof int or int*?
+	array = (int**) malloc(rows*(sizeof(int*)));
 	for(int x = 0; x < rows; x++){
 		array[x] = (int*) malloc(colums*(sizeof(int)));
 	}
@@ -66,7 +65,7 @@ void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int l
 	int x; 
 	int y;
 	int current;
-	int minVal; 
+	int minVal;  
 	for(y = 0; y < lenOne; y++){
 		for(x = 0; x < lenTwo; x++){
 			
@@ -77,14 +76,15 @@ void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int l
 						current = 0; 
 					} 
 			
-			if(y = 0){ //  Diagonal and Top unavailable
-				if(x = 0){ // Left unavailable //Only current
+			if(y == 0){ //  Diagonal and Top unavailable
+				if(x == 0){ // Left unavailable //Only current
 					table[y][x] = current; 
 				}
 					table[y][x] = (table[y][x-1] + current); //Left + Current
 			}
 			
-			if(x = 0){ // if y!=0 but x=0, Left & Diagonal not available 
+			
+			if(x == 0){ // if y!=0 but x=0, Left & Diagonal not available 
 				//Using top, for all min() parameters
 				minVal = min(table[y-1][x], table[y-1][x], table[y-1][x]);
 				table[y][x] = (minVal + current);
@@ -95,8 +95,8 @@ void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int l
 				
 			}
 			
-			
-		
+			// Am I storing values correctly to array? or am i storing ints to 
+			//	memory addreses?
 			
 			
 		}
