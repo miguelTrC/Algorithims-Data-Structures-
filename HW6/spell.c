@@ -100,6 +100,29 @@ void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int l
 	
 }
 
+void printTable(int **table, char *stringOne, char *stringTwo, int lenOne, int lenTwo){
+	printf("\n\n PRINT TABLE \n\n");
+	
+	printf(" |  | ");
+	
+	for(int x = 0; x < lenTwo; x++){
+		printf("%c| ", stringTwo[x]); 
+	}
+	printf("\n | 0| ");
+	
+	for(int x = 0; x < lenTwo; x++){
+		printf("%d| ", x+1); 
+	}
+	
+	
+	for(int y = 0; y < lenOne; y++){
+		printf("\n%c| %d|", stringOne[y], y+1);
+		for(int x = 0; x< lenTwo; x++)
+			printf(" %d|", table[y][x]);
+	}
+	printf("\n\n");
+	
+}
 
 
 
@@ -121,6 +144,8 @@ int edit_distance(char * first_string, char * second_string, int print_table){
     	// make a function to fill table? call it in both if/else
     	fillTable(table, first_string, second_string, strOne, strTwo);
     	int editDistance = table[strOne-1][strTwo-1];
+    	printTable(table, first_string, second_string, strOne-1, strTwo-1);
+    	
     	freeTable(table, strOne);
     	
     if(print_table == 1){
