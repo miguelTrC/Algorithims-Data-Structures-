@@ -122,8 +122,8 @@ void printTable(int **table, char *stringOne, char *stringTwo, int lenOne, int l
 		for(int x = 0; x< lenTwo; x++)
 			printf(" %d|", table[y][x]);
 			printf("\n");
-			for(int temp = 0; temp < lenOne; temp++){
-				printf("??");
+			for(int temp = 0; temp < lenTwo; temp++){
+				printf("-------");
 			}
 	}
 	printf("\n\n");
