@@ -96,6 +96,7 @@ void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int l
 			
 			
 		}
+		printf(" %d ", table[y][x]);
 	}
 	
 	
@@ -114,27 +115,24 @@ Parameters:
 Return:  the value of the edit distance
 */
 int edit_distance(char * first_string, char * second_string, int print_table){
-    if(print_table == 1){
-    	//(print filled table of calculations) //+1 for the '/0'
+    	
     	int strOne = strlen(first_string)+1;   //strOne == rows
     	int strTwo = strlen(second_string)+1;  // strTwo == colums
     	
     	int **table = createTable(strOne, strTwo); 
     	// make a function to fill table? call it in both if/else
-    	
     	fillTable(table, first_string, second_string, strOne, strTwo);
+    	
+    if(print_table == 1){
+    	//(print filled table of calculations) //+1 for the '/0'
+    	// make a function to fill table? call it in both if/else
     	
     }
     else{
     	//don't print table
-    	int strOne = strlen(first_string)+1;   //strOne == rows
-    	int strTwo = strlen(second_string)+1;  // strTwo == colums
-    	
-    	int **table = createTable(strOne, strTwo); 
-    	
-    	fillTable(table, first_string, second_string, strOne, strTwo);
-    }
-    return -1;  // edit distance // return last indx
+    } //try +1?
+    // getting seg fault at return (UNLESS i do -1)
+    return (table[strOne-1][strTwo-1]);  // edit distance // return last indx
 }
 
 /*
