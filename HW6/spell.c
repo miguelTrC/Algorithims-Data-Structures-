@@ -108,20 +108,26 @@ void printTable(int **table, char *stringOne, char *stringTwo, int lenOne, int l
 	for(int x = 0; x < lenTwo; x++){
 		printf("%c| ", stringTwo[x]); 
 	}
+	printf("\n-");
 	printf("\n | 0| ");
 	
 	for(int x = 0; x < lenTwo; x++){
 		printf("%d| ", x+1); 
 	}
-	
+	printf("\n-");
 	
 	for(int y = 0; y < lenOne; y++){
 		printf("\n%c| %d|", stringOne[y], y+1);
+		
 		for(int x = 0; x< lenTwo; x++)
 			printf(" %d|", table[y][x]);
+			printf("\n");
+			for(int temp = 0; temp < lenOne; temp++){
+				printf("??");
+			}
 	}
 	printf("\n\n");
-	
+	//printf the lenght of str2
 }
 
 
