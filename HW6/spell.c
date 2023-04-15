@@ -123,7 +123,7 @@ void printTable(int **table, char *stringOne, char *stringTwo, int lenOne, int l
 			printf(" %d|", table[y][x]);
 			printf("\n");
 			for(int temp = 0; temp < lenTwo; temp++){
-				printf("-------");
+				printf("----");
 			}
 	}
 	printf("\n\n");
