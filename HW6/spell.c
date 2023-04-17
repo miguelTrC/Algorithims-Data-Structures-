@@ -23,8 +23,9 @@ Student answer:  Theta(............)
 
 /* Write helper functions here */
 int **createTable(int rows, int colums){
+	
 	int **array = NULL; 
-							// allocating sizeof int or int*?
+
 	array = (int**) malloc(rows*(sizeof(int*)));
 	for(int x = 0; x < rows; x++){
 		array[x] = (int*) malloc(colums*(sizeof(int)));
@@ -61,7 +62,6 @@ int min(int diagonal, int top, int left){
 // CHANGE TO int()? to return the last value?
 void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int lenTwo){
 	//stringOne == rows(y),  stringTwo == colums(x) 
-	// NEED TO ADD THE '/0', WIll be during printTable
 	int x; 
 	int y;
 	int current;
@@ -101,7 +101,6 @@ void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int l
 }
 
 void printTable(int **table, char *stringOne, char *stringTwo, int lenOne, int lenTwo){
-	printf("\n\n PRINT TABLE \n\n");
 	
 	printf(" |  | ");
 	
@@ -156,22 +155,20 @@ int edit_distance(char * first_string, char * second_string, int print_table){
     	int strTwo = strlen(second_string)+1;  // strTwo == colums
     	
     	int **table = createTable(strOne, strTwo); 
-    	// make a function to fill table? call it in both if/else
     	fillTable(table, first_string, second_string, strOne, strTwo);
     	int editDistance = table[strOne-1][strTwo-1];
-    	printTable(table, first_string, second_string, strOne-1, strTwo-1);
+    	// removing -1 will get seg fault at return
     	
-    	freeTable(table, strOne);
+    	
     	
     if(print_table == 1){
-    	//(print filled table of calculations) //+1 for the '/0'
-    	// make a function to fill table? call it in both if/else
-    	
+    	printTable(table, first_string, second_string, strOne-1, strTwo-1);
     }
     else{
     	//don't print table
-    } //try +1?
-    // getting seg fault at return (UNLESS i do -1)
+    } 
+    
+    freeTable(table, strOne);
     return editDistance;  // edit distance // return last indx
 }
 
@@ -182,11 +179,101 @@ Parameters:
 Behavior: If any of the files cannot be open displays a message and returns. (Does not exit the program.)
 */
 void spell_check(char * testname, char * dictname){
+    
+    FILE *fp = fopen(testname, "r");
+    if(fp == NULL){
+    	printf("\nCould not open dictionary\n");
+    	return; 
+    }
+    	/* Store the first word into a string, and cast into int
+    		use that int in a for loop,
+    			inside this loop we will: 
+    			
+    			store the next word into the string, 
+    			we will use that string1 
+    				inside another loop:
+    					we will read (until EOF of dictionary)
+    					read the word on dictionary file and store 
+    					into string2, 
+    					
+    					find the edit distance between String1 and String2
+    					// int min to keep track of lowest edit distance
+    					if (edit distance ^ < min)
+    						min = edit distance 
+    			
+    			once done with going thru dictionary, 
+    			do it again, except this time, print/keep track 
+    			of the words that had the min edit distance
+    			and give user option between choosing one of these
+    			words
+    			
+    			exit this loop, (onto the outest loop)
+    			and store the next word from testname onto string1		
+    					
+    					 
+    					
+    		
+    	*/
+    
+    /* EACH (testname) FILE HAS AMOUNT OF WORDS AS FIRST line
+    
+    	dictname == dictionary file
+    	testname == has list of words we will find the least edit distance, 
+    				(its gonna be multiple words)
+    
+    	what if i just store the edit distance to a int array, 
+    	corresponding to the index of the dictionary. once at end, //
+    	print the indx's that have lowest edit distance, use those indx's
+    	to file[x] words? 
+    	
+    	// int[x] = 3 
+    	//lowest = 3
+    	//for()
+    		if(int[x] < lowest)
+    			lowest = int[x]
+    			
+    	print" the lowest edit distance is %d", lowest
+    	RUN THRU FILE AGAIN, if "stringHolder edit distance == lowest"
+    	print" here are the word(s) with the edit distance"
+    	
+    	Will give user options if they want to correct the word from 
+    	test name (don't have to do anything besides printf("og word, new"))
+    	==1
+    	if they choose a different number, keep original word
+    	
+    	from the list of words with lowest edit distance, we will have to set up
+    	print statements and give the user option to choose between the words
+    	
+    	
+    	
+    	
+    */
+    
+    
+    free(fp);
     // Write your code here
     /* 1st file is dictionary 
     	2nd is the word(s) looking for
     	find the what is most similiar to the word(s) 
     	//least amount of edit distance
+    */
+    
+    /*
+    	Open the file (testname), 
+    	//might be messy but can malloc for each word in 
+    	// in file, keeping 'dictname' the same 
+    	read in the word onto a 'string2'
+    	calculate edit distance // 2d char array (strings?)
+    	
+    	keep that edit distance as lowest, until a lower edit distance
+    	comes along, 
+    	if multiple words of edit distance, keep thos, 
+    	if a new low comes after multiple strings stored, erase all previous 
+    	
+    	when all words from 'testname', computed, print the string array
+    
+
+    
     */
 }
 
