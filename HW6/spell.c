@@ -182,9 +182,29 @@ void spell_check(char * testname, char * dictname){
     
     FILE *fp = fopen(testname, "r");
     if(fp == NULL){
-    	printf("\nCould not open dictionary\n");
+    	printf("\nCould not open list of words to spell check\n");
     	return; 
     }
+    char stringOne[100];
+    int listSize; 
+    fscanf(fp, "%s", stringOne);// if problems arise, do with &stringOne
+    listSize = (atoi) stringOne;
+    
+   	for(int x = 0; x < listSize; x++){
+   		fscanf(fp, "%s", stringOne);
+   		char stringTwo[100]; 
+   		
+   		FILE *dict = fopen(dictname, "r"); // need to free(dict)
+   		if (dict == NULL){
+   			printf("\n Could not open dictionary\n");
+   			return;
+   		}
+   		// inside a loop, while !EOF
+   		fscanf(dict, "%s", stringTwo); 
+   		
+   		
+   	}
+    
     	/* Store the first word into a string, and cast into int
     		use that int in a for loop,
     			inside this loop we will: 
