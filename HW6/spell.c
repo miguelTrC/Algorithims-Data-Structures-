@@ -219,7 +219,8 @@ void spell_check(char * testname, char * dictname){
    	printf("\n the minimum edit distance is %d for: %s %s \n", minED, stringOne, stringTwo);	
    	rewind(dict);      // resetting file pointer
    	// here I have the minED
-   	char *stringHolder[100]; 
+   	
+   /* 	char *stringHolder[100]; 
    	int count = 1;
    	
    	while(!feof(dict)){
@@ -229,6 +230,7 @@ void spell_check(char * testname, char * dictname){
    			if(editDistance == minED){
    				stringHolder[count] = stringTwo;
    				printf("\n %d - %s\n", count, stringHolder[count]); 
+   				count++;
    			}
    			
    	
@@ -244,7 +246,7 @@ void spell_check(char * testname, char * dictname){
    	
    	}
    	
-    					
+    			
     					 
     					
     	
@@ -254,5 +256,6 @@ void spell_check(char * testname, char * dictname){
     free(dict);
 
 }
-}
+	
+
 
