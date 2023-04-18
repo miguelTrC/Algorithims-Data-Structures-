@@ -187,18 +187,16 @@ void spell_check(char * testname, char * dictname){
     }
     char stringOne[100];
     int listSize; 
-    fscanf(fp, "%s", stringOne);// if problems arise, do with &stringOne
+    fscanf(fp, "%s", stringOne);
     listSize = atoi (stringOne);
     
- //   int lenOne;  Or can just do strlen() into parameter
-  //  int lenTwo;
     int minED = 10000; // Minimum edit distance
     
     FILE *dict = fopen(dictname, "r"); // need to free(dict)
     
    	for(int x = 0; x < listSize; x++){
    		fscanf(fp, "%s", stringOne);
-   		char stringTwo[100]; // Maybe put outside?
+   		char stringTwo[100]; 
 
    		
    		
@@ -216,11 +214,27 @@ void spell_check(char * testname, char * dictname){
    		}
    		
    		
-   	//printf("\n the minimum edit distance is %d for: %s %s \n", minED, stringOne, stringTwo);	
+
    	printf("\n--->|%s|\n has a minimum edit distance of: %d\n", stringOne, minED);
    	rewind(dict);      // resetting file pointer
-   	// here I have the minED
    	
+   	int counter = 1; 
+   while(!feof(dict)){
+   			fscanf(dict, "%s", stringTwo);
+   			int editDistance = edit_distance(stringOne, stringTwo, 0);
+   			if(editDistance == minED){
+   				printf("\n %d - %s", counter, stringTwo); 
+   				counter++;
+   			}
+   		
+   		}
+   
+   
+   
+   
+   
+   
+   
    /* 	char *stringHolder[100]; 
    	int count = 1;
    	
