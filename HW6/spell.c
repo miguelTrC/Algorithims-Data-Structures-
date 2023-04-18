@@ -188,22 +188,37 @@ void spell_check(char * testname, char * dictname){
     char stringOne[100];
     int listSize; 
     fscanf(fp, "%s", stringOne);// if problems arise, do with &stringOne
-    listSize = (atoi) stringOne;
+    listSize = atoi (stringOne);
+    
+ //   int lenOne;  Or can just do strlen() into parameter
+  //  int lenTwo;
+    int minED = 10000; // Minimum edit distance
+    
+    FILE *dict = fopen(dictname, "r"); // need to free(dict)
     
    	for(int x = 0; x < listSize; x++){
    		fscanf(fp, "%s", stringOne);
    		char stringTwo[100]; 
+
    		
-   		FILE *dict = fopen(dictname, "r"); // need to free(dict)
+   		
    		if (dict == NULL){
    			printf("\n Could not open dictionary\n");
    			return;
    		}
-   		// inside a loop, while !EOF
-   		fscanf(dict, "%s", stringTwo); 
+   		while(!feof(dict)){
+   			fscanf(dict, "%s", stringTwo);
+   			int editDistance = edit_distance(stringOne, stringTwo, 0);
+   			if(editDistance < minED){
+   				minED = editDistance; 
+   			}
    		
+   		
+   		
+   		}
    		
    	}
+   	printf("\n the minimum edit distance is %d \n", minED);
     
     	/* Store the first word into a string, and cast into int
     		use that int in a for loop,
@@ -271,6 +286,7 @@ void spell_check(char * testname, char * dictname){
     
     
     free(fp);
+    free(dict);
     // Write your code here
     /* 1st file is dictionary 
     	2nd is the word(s) looking for
