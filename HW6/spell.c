@@ -12,12 +12,12 @@ https://www.geeksforgeeks.org/pass-2d-array-parameter-c/
 
 Worst case time complexity to compute the edit distance from T test words
  to D dictionary words where all words have length MAX_LEN:
-Student answer:  Theta(............)
+Student answer:  Theta(T x D)  BigO(N^3)
 
 
 Worst case to do an unsuccessful binary search in a dictionary with D words, when 
 all dictionary words and the searched word have length MAX_LEN 
-Student answer:  Theta(............)
+Student answer:  Theta(N^3)
 */
 
 
@@ -59,7 +59,7 @@ int min(int diagonal, int top, int left){
 
 
 
-// CHANGE TO int()? to return the last value?
+
 void fillTable (int **table, char *stringOne, char *stringTwo, int lenOne, int lenTwo){
 	//stringOne == rows(y),  stringTwo == colums(x) 
 	int x; 
@@ -135,7 +135,7 @@ void printTable(int **table, char *stringOne, char *stringTwo, int lenOne, int l
 			}
 	}
 	printf("\n\n");
-	//printf the lenght of str2
+	
 }
 
 
@@ -260,12 +260,7 @@ void spell_check(char * testname, char * dictname){
 
    	
    	}
-   	
-    			
-    					 
-    					
-    	
-    
+   
     
     free(fp);
     free(dict);
