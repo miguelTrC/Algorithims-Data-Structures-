@@ -198,7 +198,7 @@ void spell_check(char * testname, char * dictname){
     
    	for(int x = 0; x < listSize; x++){
    		fscanf(fp, "%s", stringOne);
-   		char stringTwo[100]; 
+   		char stringTwo[100]; // Maybe put outside?
 
    		
    		
@@ -213,104 +213,46 @@ void spell_check(char * testname, char * dictname){
    				minED = editDistance; 
    			}
    		
-   		printf("\n the minimum edit distance is %d for: %s \n", minED, stringOne);
-   		
    		}
    		
+   		
+   	printf("\n the minimum edit distance is %d for: %s %s \n", minED, stringOne, stringTwo);	
+   	rewind(dict);      // resetting file pointer
+   	// here I have the minED
+   	char *stringHolder[100]; 
+   	int count = 1;
+   	
+   	while(!feof(dict)){
+   			fscanf(dict, "%s", stringTwo);
+   			int editDistance = edit_distance(stringOne, stringTwo, 0);
+   			printf("\n holding \n");
+   			if(editDistance == minED){
+   				stringHolder[count] = stringTwo;
+   				printf("\n %d - %s\n", count, stringHolder[count]); 
+   			}
+   			
+   	
+   	/*	
+   		restart the loop going thru dict, except this time
+   		if editDistance == minED 
+   			keep track of that string and give it a #, 
+   			ask user to enter #, 
+   			if # entered, print "the correct word is %s"
+   	*/
+   	
+
    	
    	}
-   	printf("\n the minimum edit distance is %d \n", minED);
-    
-    	/* Store the first word into a string, and cast into int
-    		use that int in a for loop,
-    			inside this loop we will: 
-    			
-    			store the next word into the string, 
-    			we will use that string1 
-    				inside another loop:
-    					we will read (until EOF of dictionary)
-    					read the word on dictionary file and store 
-    					into string2, 
-    					
-    					find the edit distance between String1 and String2
-    					// int min to keep track of lowest edit distance
-    					if (edit distance ^ < min)
-    						min = edit distance 
-    			
-    			once done with going thru dictionary, 
-    			do it again, except this time, print/keep track 
-    			of the words that had the min edit distance
-    			and give user option between choosing one of these
-    			words
-    			
-    			exit this loop, (onto the outest loop)
-    			and store the next word from testname onto string1		
+   	
     					
     					 
     					
-    		
-    	*/
-    
-    /* EACH (testname) FILE HAS AMOUNT OF WORDS AS FIRST line
-    
-    	dictname == dictionary file
-    	testname == has list of words we will find the least edit distance, 
-    				(its gonna be multiple words)
-    
-    	what if i just store the edit distance to a int array, 
-    	corresponding to the index of the dictionary. once at end, //
-    	print the indx's that have lowest edit distance, use those indx's
-    	to file[x] words? 
     	
-    	// int[x] = 3 
-    	//lowest = 3
-    	//for()
-    		if(int[x] < lowest)
-    			lowest = int[x]
-    			
-    	print" the lowest edit distance is %d", lowest
-    	RUN THRU FILE AGAIN, if "stringHolder edit distance == lowest"
-    	print" here are the word(s) with the edit distance"
-    	
-    	Will give user options if they want to correct the word from 
-    	test name (don't have to do anything besides printf("og word, new"))
-    	==1
-    	if they choose a different number, keep original word
-    	
-    	from the list of words with lowest edit distance, we will have to set up
-    	print statements and give the user option to choose between the words
-    	
-    	
-    	
-    	
-    */
     
     
     free(fp);
     free(dict);
-    // Write your code here
-    /* 1st file is dictionary 
-    	2nd is the word(s) looking for
-    	find the what is most similiar to the word(s) 
-    	//least amount of edit distance
-    */
-    
-    /*
-    	Open the file (testname), 
-    	//might be messy but can malloc for each word in 
-    	// in file, keeping 'dictname' the same 
-    	read in the word onto a 'string2'
-    	calculate edit distance // 2d char array (strings?)
-    	
-    	keep that edit distance as lowest, until a lower edit distance
-    	comes along, 
-    	if multiple words of edit distance, keep thos, 
-    	if a new low comes after multiple strings stored, erase all previous 
-    	
-    	when all words from 'testname', computed, print the string array
-    
 
-    
-    */
+}
 }
 
