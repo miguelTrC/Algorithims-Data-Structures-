@@ -216,7 +216,8 @@ void spell_check(char * testname, char * dictname){
    		}
    		
    		
-   	printf("\n the minimum edit distance is %d for: %s %s \n", minED, stringOne, stringTwo);	
+   	//printf("\n the minimum edit distance is %d for: %s %s \n", minED, stringOne, stringTwo);	
+   	printf("\n--->|%s|\n has a minimum edit distance of: %d\n", stringOne, minED);
    	rewind(dict);      // resetting file pointer
    	// here I have the minED
    	
