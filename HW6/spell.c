@@ -213,10 +213,11 @@ void spell_check(char * testname, char * dictname){
    				minED = editDistance; 
    			}
    		
-   		
+   		printf("\n the minimum edit distance is %d for: %s \n", minED, stringOne);
    		
    		}
    		
+   	
    	}
    	printf("\n the minimum edit distance is %d \n", minED);
     
