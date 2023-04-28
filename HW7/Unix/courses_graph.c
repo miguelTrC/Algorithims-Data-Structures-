@@ -92,8 +92,7 @@ int main(){
 		colum = search(courses, token); 
 		printf("\n Colum:%d ", colum); 
 		
-		for(int x=0; strtok(NULL, " ") != NULL; x++){ // or maybe use strtok instead?!= NULL
-			token = strtok(NULL, " "); 
+		for(int x=0; (token = strtok(NULL, " ")) != NULL; x++){ 
 			row = search(courses, token); 
 			printf("\n row:%d", row);
 			
