@@ -15,8 +15,9 @@ int main(){
 	char filename[maxStr]; 
 	char fileLine[maxLine];
 	
-	char course[maxStr];  // even needed? 
+	//char course[maxStr];  // even needed? 
 	
+	char *courses;
 	
 	// token? 
 	
@@ -25,31 +26,47 @@ int main(){
 	
 	removeN(filename);
 	
-	
-	printf("\n String recieved: (%s)", filename); 
-	
 	FILE *fp = fopen(filename, "r"); 
-	
-	
 	
 	if(fp == NULL){
 		printf("\n Unable to open file\n"); 
 		return EXIT_FAILURE;
 	}
 	
-	char *token;
+	
 	
 	/*	File is opening and repeating last value
 	*/
 	
 	//I mean not what i expected but it works for the first 
 	//parameters
+	int x = 0;
+	// can repeat loop to find out # of lines == size of array
 	while ( fgets(fileLine, maxLine, fp) != NULL ){
 		
 		 // put into a loop?
 		token = strtok(fileLine, " ");
+		//strcpy(courses[x], token);
+		//printf("\n courses[%d]: %s ",x, courses[x]);
+		printf("\n %d string: %s \n ",x, token); 
+		x++;
+		//store token into array
 		
-		printf("string: %s \n ", token); 
+	}
+	// Dynamically allocate it later
+	char *token[x];
+	//resetting file pointer 
+	fseek(fp, 0, SEEK_SET);
+	x = 0;
+	while ( fgets(fileLine, maxLine, fp) != NULL ){
+		
+		 // put into a loop?
+		token = strtok(fileLine, " ");
+		//strcpy(courses[x], token);
+		//printf("\n courses[%d]: %s ",x, courses[x]);
+		printf("\n %d string: %s \n ",x, token); 
+		x++;
+		//store token into array
 		
 	}
 	
