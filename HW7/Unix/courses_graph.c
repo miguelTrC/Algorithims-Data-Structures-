@@ -8,6 +8,16 @@ void removeN (char *string){
 	string[strcspn(string, "\n")] = 0;
 }
 
+// Will return the indx of the location of pre-req
+int search(char **courseList, char *string){
+	//strcmp returns =0, if equal
+	int index = 0; 
+	while ( strcmp(courseList[index], string) != 0 ){
+		index++;
+	}
+	return index; 
+}
+
 int main(){
 	
 	int maxStr = 30;
@@ -42,6 +52,7 @@ int main(){
 	//parameters
 	int x = 0;
 	// can repeat loop to find out # of lines == size of array
+	// gets size of file for array 
 	while ( fgets(fileLine, maxLine, fp) != NULL ){
 		
 		 // put into a loop?
@@ -53,11 +64,13 @@ int main(){
 		//store token into array
 		
 	}
-	// Dynamically allocate it later
+	// Dynamically allocate it later? can do lenght too [x][x]
 	char *courses[x];
+	int table[x][x]; //
 	//resetting file pointer 
 	fseek(fp, 0, SEEK_SET);
 	x = 0;
+	//stores values into string array 
 	while ( fgets(fileLine, maxLine, fp) != NULL ){
 		
 		 // put into a loop?
@@ -66,28 +79,39 @@ int main(){
 		printf("\n courses[%d]: %s ",x, courses[x]);
 		printf("\n %d string: %s \n ",x, token); 
 		x++;
-		//store token into array
 		
 	}
 	
 	
+	/*
+		restart fp 
+		
+		need to learn how to get a line (fgets), tokenize it
+		and be able to use all values in that table, 
+		[token1, 2, 3]
+		{
+		token1==y will be colum arr[][y]
+		insert token1 into search() to get y 
+		
+		after the first token, insert into a loop, until '\n'
+			inside this loop token2, ... into search()
+			this int return will be our x, arr[x][y] = 1 
+		
+		
+		
+		
+		
+			
+	
+	*/
+	
 	
 	/*
-		read file from user 
-			maxLen of filename = 30 
-			maxLen of course = 30 
-			maxLenght of each line will be 1,000
-			
-			
-		will use fgets 
-		
-		IF I WANT TO GET RID OF \n in line;
-		strName[strcspn(strName, "\n")] = 0 
-									^ second string using compared
-		
-		// cspn returns the indx of the two strings compared, 
-		but im using it to replaced said index
+		Using enum? 
 	*/
+	
+	
+	
 	
 	
 	return EXIT_SUCCESS; 
