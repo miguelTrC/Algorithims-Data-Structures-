@@ -83,6 +83,42 @@ int main(){
 	int row; 
 	
 	
+	// maybe set int arr all = 0 first ?
+	
+	
+	while ( fgets(fileLine, maxLine, fp) != NULL ){
+		//gets first token for [][y]
+		token = strtok(fileLine, " ");
+		colum = search(courses, token); 
+		printf("\n Colum:%d ", colum); 
+		
+		for(int x=0; strtok(NULL, " ") != NULL; x++){ // or maybe use strtok instead?!= NULL
+			token = strtok(NULL, " "); 
+			row = search(courses, token); 
+			printf("\n row:%d", row);
+			
+		}
+		
+		//for x=0; token != Null; x++ 
+			//token = strtok(Null, )
+			// search() = x, arr[x][y] = 1
+		
+	}
+/*	
+	// Benefit of this for loop, is recieving the 1st token
+	for(int x=0; x<lines; x++){ // this is suppose to read amount of lines in file
+		fgets(fileLine, maxLine, fp); 
+		//this will get the first line in the file 
+		
+		token = strtok(fileLine, " ");
+		
+		/*So i have the first line, ex c300
+		//using search(), will return the index location (which can be 
+		//used interchangably with x or y, ), we will use the return int 
+		as the [][y] the colum value 
+		//
+	}
+	*/
 	
 	/* needs work 
 	for(int x=0; x<lines; x++){
