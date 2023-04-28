@@ -22,6 +22,8 @@ int main(){
 	
 	int maxStr = 30;
 	int maxLine = 1000;
+	int lines = 0; 
+	
 	char filename[maxStr]; 
 	char fileLine[maxLine];
 	
@@ -50,38 +52,58 @@ int main(){
 	
 	//I mean not what i expected but it works for the first 
 	//parameters
-	int x = 0;
 	// can repeat loop to find out # of lines == size of array
 	// gets size of file for array 
 	while ( fgets(fileLine, maxLine, fp) != NULL ){
-		
-		 // put into a loop?
 		token = strtok(fileLine, " ");
-		//strcpy(courses[x], token);
-		//printf("\n courses[%d]: %s ",x, courses[x]);
-		printf("\n %d string: %s \n ",x, token); 
-		x++;
-		//store token into array
-		
+		printf("\n %d string: %s \n ",lines, token); 
+		lines++;
 	}
 	// Dynamically allocate it later? can do lenght too [x][x]
-	char *courses[x];
-	int table[x][x]; //
+	char *courses[lines];
+	int table[lines][lines]; //
 	//resetting file pointer 
 	fseek(fp, 0, SEEK_SET);
-	x = 0;
+	 lines = 0;
+	
 	//stores values into string array 
 	while ( fgets(fileLine, maxLine, fp) != NULL ){
 		
 		 // put into a loop?
 		token = strtok(fileLine, " ");
-		strcpy(courses[x], token);
-		printf("\n courses[%d]: %s ",x, courses[x]);
-		printf("\n %d string: %s \n ",x, token); 
-		x++;
+		strcpy(courses[lines], token);
+		printf("\n courses[%d]: %s ",lines, courses[lines]);
+		printf("\n %d string: %s \n ",lines, token); 
+		lines++;
 		
 	}
+	printf("\n test \n");
+	fseek(fp, 0, SEEK_SET);
+	int colum; 
+	int row; 
 	
+	
+	
+	/* needs work 
+	for(int x=0; x<lines; x++){
+		//token1
+		fgets(fileLine, maxLine, fp); 
+		token = strtok(fileLine, " ");  // need to test tokenDeilim
+		colum = search(courses, token); 
+		printf("\n test string %s  \n", token);
+		printf("\n test2 \n");
+		while(token != NULL){
+			token = strtok(NULL, " ");
+			printf("\n token:%s ", token);
+			if (token != NULL){
+				row = search(courses, token); 
+				table[row][colum] = 1; 
+				printf("\n %d:%s --> %d:%s",row, courses[row], colum, courses[colum]);
+				}
+		}
+		
+	} 
+*/	
 	
 	/*
 		restart fp 
