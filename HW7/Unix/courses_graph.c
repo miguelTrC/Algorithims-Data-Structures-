@@ -65,6 +65,8 @@ int main(){
 	//resetting file pointer 
 	fseek(fp, 0, SEEK_SET);
 	 lines = 0;
+	 
+	 	printf("\n PRIIINT = %s ", token);
 	
 	//stores values into string array 
 	while ( fgets(fileLine, maxLine, fp) != NULL ){
@@ -79,6 +81,7 @@ int main(){
 	}
 	printf("\n test \n");
 	fseek(fp, 0, SEEK_SET);
+	printf("\n token BEFORE WHILE = %s ", token);
 	int colum; 
 	int row; 
 	
@@ -88,21 +91,23 @@ int main(){
 	
 	while ( fgets(fileLine, maxLine, fp) != NULL ){
 		//gets first token for [][y]
+		printf("\n Entered While loop ");
 		token = strtok(fileLine, " ");
+		printf("\n token = %s ", token);
 		colum = search(courses, token); 
 		printf("\n Colum:%d ", colum); 
 		
-		for(int x=0; (token = strtok(NULL, " ")) != NULL; x++){ 
+		/*if( (token = strtok(NULL, " ")) != NULL ){ 
 			row = search(courses, token); 
 			printf("\n row:%d", row);
 			
-		}
+		}*/
 		
 		//for x=0; token != Null; x++ 
 			//token = strtok(Null, )
 			// search() = x, arr[x][y] = 1
 		
-	}
+	} 
 /*	
 	// Benefit of this for loop, is recieving the 1st token
 	for(int x=0; x<lines; x++){ // this is suppose to read amount of lines in file
