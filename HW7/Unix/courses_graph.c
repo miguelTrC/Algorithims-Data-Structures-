@@ -17,7 +17,7 @@ int main(){
 	
 	//char course[maxStr];  // even needed? 
 	
-	char *courses;
+	char *token;
 	
 	// token? 
 	
@@ -54,7 +54,7 @@ int main(){
 		
 	}
 	// Dynamically allocate it later
-	char *token[x];
+	char *courses[x];
 	//resetting file pointer 
 	fseek(fp, 0, SEEK_SET);
 	x = 0;
@@ -62,8 +62,8 @@ int main(){
 		
 		 // put into a loop?
 		token = strtok(fileLine, " ");
-		//strcpy(courses[x], token);
-		//printf("\n courses[%d]: %s ",x, courses[x]);
+		strcpy(courses[x], token);
+		printf("\n courses[%d]: %s ",x, courses[x]);
 		printf("\n %d string: %s \n ",x, token); 
 		x++;
 		//store token into array
