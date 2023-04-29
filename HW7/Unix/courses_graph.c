@@ -42,6 +42,24 @@ void freeTable(int **table, int rows){
 	free(table); 
 }
 
+char **createString(int amount, int len){ 
+//amount = amount of strings, len = lenght of each string
+	char **array = (char **) malloc(amount * sizeof(char *));
+	
+	for(int x = 0; x < amount; x++){
+		array[x] = (char *) malloc(len * sizeof(char));
+		array[x][0] = '\0';
+	} 
+	return (array);
+}
+
+void freeString(char **array, int amount){
+	for(int x = 0; x < amount; x++){
+		free(array[x]);
+	}
+	free(array);
+}
+
 
 // restarting due to segmentation faults
 int main(){
@@ -78,6 +96,7 @@ int main(){
 	
 	//Dynamically allocate int and string
 	int **table = createTable(lines, lines); 
+	char **courses = createString(lines, maxStr);
 	
 	
 	
@@ -85,6 +104,8 @@ int main(){
 	
 	free(fp); 
 	freeTable(table, lines);
+	freeString(courses, lines);
+	
 	
 	return EXIT_SUCCESS; 
 }
