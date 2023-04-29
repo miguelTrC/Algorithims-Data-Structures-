@@ -103,9 +103,45 @@ int main(){
 	//now work on storing values onto arrays 
 	// either reset pointer or reopen file? 
 	fseek(fp, 0, SEEK_SET); //Resets file pointer
+	
+	// this copies the first course in each line onto courses
+	for(int x = 0; x < lines; x++){
+		fgets(fileLine, maxLine, fp); 
+		token = strtok(fileLine, " "); 
+		strcpy(courses[x], token); 
+		printf(" %d : %s \n", x, courses[x]);
+	}
+	
+	
+	//Now working on filling int array
+	// BC of this i now get a seg fault from above function of 
+		// copying onto string array. 
+		// if removed below function, function above works without seg-fault
 	int colum; 
 	int row; 
+	fseek(fp, 0, SEEK_SET);
 	
+	for(int x = 0; x < lines; x++){
+		fgets(fileLine, maxLine, fp); 
+		token = strtok(fileLine, " "); 
+		while( (token = strtok(NULL, " ")) != NULL ){
+			/* this will get the 2nd course in the line
+				x = indx of the row we are in 
+				meaning that 
+				the 2nd course is a pre-req to x 
+				we will have the pre-req as token 
+				
+				x = colum 
+				search (pre-req) = row 
+				int[row][colum] = 1 
+			*/
+			colum = x; 
+			row = search(courses, token);
+			table[row][colum] = 1; 
+			printf(" array[%d][%d]: %d \n", row, colum, table[row][colum]);
+			printf(" %s ----> %s \n", courses[row], courses[colum]);
+			}
+	}
 
 	
 	
