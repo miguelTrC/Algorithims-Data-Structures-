@@ -61,6 +61,8 @@ void freeString(char **array, int amount){
 }
 
 
+
+
 // restarting due to segmentation faults
 int main(){
 	
@@ -98,14 +100,18 @@ int main(){
 	int **table = createTable(lines, lines); 
 	char **courses = createString(lines, maxStr);
 	
+	//now work on storing values onto arrays 
+	// either reset pointer or reopen file? 
+	fseek(fp, 0, SEEK_SET); //Resets file pointer
+	int colum; 
+	int row; 
+	
+
 	
 	
-	
-	
-	free(fp); 
+	fclose(fp); 
 	freeTable(table, lines);
 	freeString(courses, lines);
-	
 	
 	return EXIT_SUCCESS; 
 }
