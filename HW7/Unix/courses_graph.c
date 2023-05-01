@@ -1,155 +1,162 @@
-// COME BACK TO eiteher keep file name or rename to courses_graph_easy.c 
-// ADD NAME AT TOP; look at requirements
-#include <stdio.h> 
-#include <stdlib.h> 
-#include <string.h> 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-// removes '\n'
-void removeN (char *string){
-	string[strcspn(string, "\n")] = 0;
+#define MAX_FILENAME_LENGTH 30
+#define MAX_COURSE_LENGTH 30
+#define MAX_LINE_LENGTH 1000
+#define MAX_NUM_COURSES 100
+
+struct Vertex {
+    char name[MAX_COURSE_LENGTH];
+    int inDegree;
+    int startTime;
+    int finishTime;
+    struct Vertex* adjList[MAX_NUM_COURSES];
+};
+
+int time = 0;
+
+// Perform depth-first search to compute start and finish times
+void DFS_visit(struct Vertex* vertex) {
+    time++;
+    vertex->startTime = time;
+    for (int i = 0; i < MAX_NUM_COURSES && vertex->adjList[i] != NULL; i++) {
+        if (vertex->adjList[i]->startTime == 0) {
+            DFS_visit(vertex->adjList[i]);
+        }
+    }
+    time++;
+    vertex->finishTime = time;
 }
 
-// Will return the indx of the location of pre-req
-int search(char **courseList, char *string){
-	//strcmp returns =0, if equal
-	int index = 0; 
-	while ( strcmp(courseList[index], string) != 0 ){
-		index++;
-	}
-	return index; 
+// Perform topological sorting and print order of courses to be taken
+void topologicalSort(struct Vertex** graph, int numVertices, char** sortedCourses) {
+    // Initialize a queue and an array to store the sorted order of courses
+    struct Vertex** queue = malloc(numVertices * sizeof(struct Vertex*));
+    int queueFront = 0, queueRear = 0;
+    int sortedIndex = 0;
+
+    // Compute the in-degree of each vertex
+    for (int i = 0; i < numVertices; i++) {
+        for (int j = 0; graph[i]->adjList[j] != NULL; j++) {
+            graph[i]->adjList[j]->inDegree++;
+        }
+    }
+
+    // Enqueue all vertices with in-degree 0
+    for (int i = 0; i < numVertices; i++) {
+        if (graph[i]->inDegree == 0) {
+            queue[queueRear++] = graph[i];
+        }
+    }
+
+    // Perform topological sort
+    while (queueFront != queueRear) {
+        struct Vertex* current = queue[queueFront++];
+        sortedCourses[sortedIndex++] = malloc(strlen(current->name) + 1);
+		strcpy(sortedCourses[sortedIndex], current->name);
+        sortedIndex++;
+
+        // Decrement the in-degree of all vertices adjacent to current
+        for (int i = 0; i < MAX_NUM_COURSES && current->adjList[i] != NULL; i++) {
+            current->adjList[i]->inDegree--;
+
+            // Enqueue any vertices with in-degree 0
+            if (current->adjList[i]->inDegree == 0) {
+                queue[queueRear++] = current->adjList[i];
+            }
+        }
+    }
+
+    // Compute start and finish times for each vertex
+    for (int i = 0; i < numVertices; i++) {
+        if (graph[i]->startTime == 0) {
+            DFS_visit(graph[i]);
+        }
+    }
+
+    // Print out start and finish times for each vertex
+    printf("Vertex\tStart Time\tFinish Time\n");
+    for (int i = 0; i < numVertices; i++) {
+        printf("%s\t%d\t\t%d\n", graph[i]->name, graph[i]->startTime, graph[i]->finishTime);
+    }
+
+    // Print out order in which courses should be taken
+    printf("Courses to be taken:\n");
+// Print out the sorted order of courses
+for (int i = 0; i < numVertices; i++) {
+printf("%s\n", sortedCourses[i]);
+}
+// Free memory allocated for queue and sortedCourses
+free(queue);
+for (int i = 0; i < numVertices; i++) {
+    free(sortedCourses[i]);
+}
+}
+
+int main() {
+// Prompt user to enter input file name
+char filename[MAX_FILENAME_LENGTH];
+printf("Enter name of input file: ");
+scanf("%s", filename);
+// Open input file
+FILE* inputFile = fopen(filename, "r");
+if (inputFile == NULL) {
+    printf("Could not open file.\n");
+    return 1;
+}
+
+// Read in course information from input file
+int numVertices = 0;
+struct Vertex* graph[MAX_NUM_COURSES];
+char* courseNames[MAX_NUM_COURSES];
+char line[MAX_LINE_LENGTH];
+while (fgets(line, MAX_LINE_LENGTH, inputFile) != NULL) {
+    char* token = strtok(line, ",");
+    struct Vertex* vertex = malloc(sizeof(struct Vertex));
+    strcpy(vertex->name, token);
+    vertex->inDegree = 0;
+    vertex->startTime = 0;
+    vertex->finishTime = 0;
+    int numAdj = 0;
+    while ((token = strtok(NULL, ",")) != NULL) {
+        vertex->adjList[numAdj++] = malloc(sizeof(struct Vertex));
+        strcpy(vertex->adjList[numAdj - 1]->name, token);
+        vertex->adjList[numAdj - 1]->inDegree = 0;
+        vertex->adjList[numAdj - 1]->startTime = 0;
+        vertex->adjList[numAdj - 1]->finishTime = 0;
+    }
+    graph[numVertices++] = vertex;
+    courseNames[numVertices - 1] = vertex->name;
+}
+fclose(inputFile);
+
+// Link vertices in graph using adjacency lists
+for (int i = 0; i < numVertices; i++) {
+    for (int j = 0; graph[i]->adjList[j] != NULL; j++) {
+        for (int k = 0; k < numVertices; k++) {
+            if (strcmp(graph[k]->name, graph[i]->adjList[j]->name) == 0) {
+                graph[i]->adjList[j] = graph[k];
+                break;
+            }
+        }
+    }
+}
+
+// Perform topological sort and print order of courses to be taken
+char* sortedCourses[MAX_NUM_COURSES];
+topologicalSort(graph, numVertices, sortedCourses);
+
+// Free memory allocated for graph and courseNames
+for (int i = 0; i < numVertices; i++) {
+    free(graph[i]);
+    free(courseNames[i]);
+}
+
+return 0;
 }
 
 
-int **createTable(int rows, int colums){
-	
-	int **array = NULL; 
-
-	array = (int**) malloc(rows*(sizeof(int*)));
-	for(int x = 0; x < rows; x++){
-		array[x] = (int*) malloc(colums*(sizeof(int)));
-		
-		for(int j = 0; j < colums; j++){
-		array[x][j] = 0; 
-		}
-	}
-	
-	return (array);
-}
-
-void freeTable(int **table, int rows){
-	for(int x = 0; x < rows; x++){
-		free(table[x]);
-	}
-	free(table); 
-}
-
-char **createString(int amount, int len){ 
-//amount = amount of strings, len = lenght of each string
-	char **array = (char **) malloc(amount * sizeof(char *));
-	
-	for(int x = 0; x < amount; x++){
-		array[x] = (char *) malloc(len * sizeof(char));
-		array[x][0] = '\0';
-	} 
-	return (array);
-}
-
-void freeString(char **array, int amount){
-	for(int x = 0; x < amount; x++){
-		free(array[x]);
-	}
-	free(array);
-}
 
 
-
-
-// restarting due to segmentation faults
-int main(){
-	
-	int maxStr = 30;
-	int maxLine = 1000;
-	int lines = 0; 
-	
-	char filename[maxStr]; 
-	char fileLine[maxLine];
-	
-	//char course[maxStr];  // even needed? 
-	
-	char *token;
-	
-	//Recieving fileName
-	printf("\n Enter file name:\n"); 
-	fgets(filename, maxStr, stdin);
-	removeN(filename);
-	//Opening File
-	FILE *fp = fopen(filename, "r"); 
-	
-	if(fp == NULL){
-		printf("\n Unable to open file\n"); 
-		return EXIT_FAILURE;
-	}
-	
-	// Gets lenght for table
-	while ( fgets(fileLine, maxLine, fp) != NULL ){
-		token = strtok(fileLine, " ");
-		printf("\n %d string: %s \n ",lines, token); 
-		lines++;
-	}
-	
-	//Dynamically allocate int and string
-		//Seeing if allocating an +1, will stop segFaults
-	int **table = createTable(lines+1, lines+1); 
-	char **courses = createString(lines+1, maxStr);
-	
-	//now work on storing values onto arrays 
-	// either reset pointer or reopen file? 
-	fseek(fp, 0, SEEK_SET); //Resets file pointer
-	
-	// this copies the first course in each line onto courses
-	for(int x = 0; x < lines; x++){
-		fgets(fileLine, maxLine, fp); 
-		token = strtok(fileLine, " "); 
-		strcpy(courses[x], token); 
-		printf(" %d : %s \n", x, courses[x]);
-	}
-	
-	
-	//Now working on filling int array
-	// BC of this i now get a seg fault from above function of 
-		// copying onto string array. 
-		// if removed below function, function above works without seg-fault
-	int colum; 
-	int row; 
-	fseek(fp, 0, SEEK_SET);
-	
-	for(int x = 0; x < lines; x++){
-		fgets(fileLine, maxLine, fp); 
-		token = strtok(fileLine, " "); 
-		while( (token = strtok(NULL, " ")) != NULL ){
-			/* this will get the 2nd course in the line
-				x = indx of the row we are in 
-				meaning that 
-				the 2nd course is a pre-req to x 
-				we will have the pre-req as token 
-				
-				x = colum 
-				search (pre-req) = row 
-				int[row][colum] = 1 
-			*/
-			colum = x; 
-			row = search(courses, token);
-			table[row][colum] = 1; 
-			printf(" array[%d][%d]: %d \n", row, colum, table[row][colum]);
-			printf(" %s ----> %s \n", courses[row], courses[colum]);
-			}
-	}
-
-	
-	
-	fclose(fp); 
-	freeTable(table, lines);
-	freeString(courses, lines);
-	
-	return EXIT_SUCCESS; 
-}
