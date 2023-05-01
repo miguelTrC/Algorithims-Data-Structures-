@@ -1,4 +1,5 @@
 // COME BACK TO eiteher keep file name or rename to courses_graph_easy.c 
+// ADD NAME AT TOP; look at requirements
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <string.h> 
@@ -97,8 +98,9 @@ int main(){
 	}
 	
 	//Dynamically allocate int and string
-	int **table = createTable(lines, lines); 
-	char **courses = createString(lines, maxStr);
+		//Seeing if allocating an +1, will stop segFaults
+	int **table = createTable(lines+1, lines+1); 
+	char **courses = createString(lines+1, maxStr);
 	
 	//now work on storing values onto arrays 
 	// either reset pointer or reopen file? 
