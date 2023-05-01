@@ -134,14 +134,14 @@ int main(){
 				x = colum 
 				search (pre-req) = row 
 				int[row][colum] = 1 
-			*/
+			// */
 			colum = x; 
 			row = search(courses, token);
 			table[row][colum] = 1; 
 			printf(" array[%d][%d]: %d \n", row, colum, table[row][colum]);
 			printf(" %s ----> %s \n", courses[row], courses[colum]);
 			}
-	}
+	} 
 
 	
 	

@@ -56,6 +56,7 @@ int main() {
         while (line[i]) {
             if (line[i] != ' ' && line[i] != '\n') {
                 courses[n][j++] = line[i++];
+                printf("\n %s ",courses[n]);
             } else {
                 courses[n][j] = '\0';
                 num_courses[n]++;
