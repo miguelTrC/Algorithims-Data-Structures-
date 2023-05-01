@@ -63,6 +63,7 @@ int main() {
                 j = 0;
                 i++;
             }
+            printf(" \n Final result %s ",courses[n]);
         }
         n++;
     }

@@ -119,8 +119,37 @@ int main(){
 		// if removed below function, function above works without seg-fault
 	int colum; 
 	int row; 
+	int current = 0;
+	char holder[maxStr];
 	fseek(fp, 0, SEEK_SET);
 	
+	
+	// Retrieves each individual course (had to read each character due to strtok errors)
+	while (fgets(fileLine, maxLine, fp)) {
+        if (fileLine[0] == '\n'){
+        	return EXIT_FAILURE;
+        }
+        int idx = 0;
+        int x = 0;
+        while (fileLine[idx]) {
+            if ( (fileLine[idx] != ' ') && (fileLine[idx] != '\n') ){
+                holder[x++] = fileLine[idx++];
+            } 
+            else{
+                holder[x] = '\0';
+                x = 0;
+                idx++;
+            }
+            //printf(" \n Final result %s ",holder);
+        }
+        printf(" \n Final result %s ",holder);
+        current++;
+    }
+	
+	
+	
+	
+	/*
 	for(int x = 0; x < lines; x++){
 		fgets(fileLine, maxLine, fp); 
 		token = strtok(fileLine, " "); 
@@ -134,14 +163,14 @@ int main(){
 				x = colum 
 				search (pre-req) = row 
 				int[row][colum] = 1 
-			// */
+			// /
 			colum = x; 
 			row = search(courses, token);
 			table[row][colum] = 1; 
 			printf(" array[%d][%d]: %d \n", row, colum, table[row][colum]);
 			printf(" %s ----> %s \n", courses[row], courses[colum]);
 			}
-	} 
+	} */
 
 	
 	
