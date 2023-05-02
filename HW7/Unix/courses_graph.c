@@ -61,6 +61,44 @@ void freeString(char **array, int amount){
 }
 
 
+//Has the string array of first course
+// Vertices is the table showing the vertices 
+//   lines is the size of the arrays (# of lines in file)
+int *DFS_visit(char **courses, int** vertices, int lines){
+	int visited = 0; //0 = white, 1 = grey, 2 = black
+	int *stack; 
+	for (int x = 0; x < lines; x++){
+		printf("\n Looking at %s ",courses[x]); 
+		printf(" \n this course is a Pre-req to: ");
+		for (int y = 0; y < lines; y++){
+			if(vertices[x][y] == 1){
+				printf(" %s ", courses[y]);
+				visited++; 
+				if(visited == 2){
+					stack[x] = vertices[x][y]; 
+				}
+			}
+		}
+		//DFS_visit()
+		if(visited == 1){
+		printf("\n Cycle found");
+		}
+	}
+	return (stack); 
+}
+
+int *tropological(int *stack, int lines){
+	//reversing DFS 
+	int *values; 
+	int temp;
+	for(int x = 0; x < lines; x++){
+		temp = stack[lines - x]; 
+		values[x] = temp; 
+	}
+	return (values); 
+}
+
+
 
 
 // restarting due to segmentation faults
@@ -121,7 +159,33 @@ int main(){
 	char holder[maxStr];
 	fseek(fp, 0, SEEK_SET);
 	
+		
+	for(int x = 0; x < lines; x++){
+		fgets(fileLine, maxLine, fp); 
+		token = strtok(fileLine, " "); 
+		while( (token = strtok(NULL, " ")) != NULL ){
+			/* this will get the 2nd course in the line
+				x = indx of the row we are in 
+				meaning that 
+				the 2nd course is a pre-req to x 
+				we will have the pre-req as token 
+				
+				x = colum 
+				search (pre-req) = row 
+				int[row][colum] = 1 
+			// */
+			colum = x; 
+			row = search(courses, token);
+			table[row][colum] = 1; 
+			printf(" array[%d][%d]: %d \n", row, colum, table[row][colum]);
+			printf(" %s ----> %s \n", courses[row], courses[colum]);
+			}
+	} 
 	
+	
+	
+	
+		/*
 	// Retrieves each individual course (had to read each character due to strtok errors)
 	while (fgets(fileLine, maxLine, fp)) {
         if (fileLine[0] == '\n'){
@@ -142,41 +206,11 @@ int main(){
         }
         printf(" \n Final result %s  %d",holder,current);
         temp = search(courses, holder); 
-        printf(" search %d \n ", temp);
+        
+        
         current++;
     }
-	
-	
-	
-	
-	
-	
-	
-	/*
-		// BC of this i now get a seg fault from above function of 
-		// copying onto string array. 
-		// if removed below function, function above works without seg-fault
-	for(int x = 0; x < lines; x++){
-		fgets(fileLine, maxLine, fp); 
-		token = strtok(fileLine, " "); 
-		while( (token = strtok(NULL, " ")) != NULL ){
-			/* this will get the 2nd course in the line
-				x = indx of the row we are in 
-				meaning that 
-				the 2nd course is a pre-req to x 
-				we will have the pre-req as token 
-				
-				x = colum 
-				search (pre-req) = row 
-				int[row][colum] = 1 
-			// /
-			colum = x; 
-			row = search(courses, token);
-			table[row][colum] = 1; 
-			printf(" array[%d][%d]: %d \n", row, colum, table[row][colum]);
-			printf(" %s ----> %s \n", courses[row], courses[colum]);
-			}
-	} */
+	*/
 
 	
 	

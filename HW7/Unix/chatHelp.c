@@ -37,6 +37,23 @@ int main() {
         courses[i] = (char *)malloc(MAX_LENGTH * sizeof(char));
         prerequisites[i] = (int *)calloc(num_courses, sizeof(int));
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     // Read file to populate courses and prerequisites arrays
     int course_idx = 0;
@@ -47,6 +64,7 @@ int main() {
         // Extract course name from line
         char *course = strtok(line, " ");
         strcpy(courses[course_idx], course);
+        // gets[y]
 
         // Extract prerequisites from line and update prerequisites array
         while ((course = strtok(NULL, " "))) {
@@ -60,6 +78,22 @@ int main() {
 
         course_idx++;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Print courses and prerequisites arrays
     printf("Courses:\n");
