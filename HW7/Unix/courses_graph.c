@@ -90,9 +90,10 @@ int main(){
 	}
 	
 	// Gets lenght for table
+	
 	while ( fgets(fileLine, maxLine, fp) != NULL ){
 		token = strtok(fileLine, " ");
-		printf("\n %d string: %s \n ",lines, token); 
+		printf(" Line:%d course: %s \n ",lines, token); 
 		lines++;
 	}
 	
@@ -100,8 +101,6 @@ int main(){
 	int **table = createTable(lines, lines); 
 	char **courses = createString(lines, maxStr);
 	
-	//now work on storing values onto arrays 
-	// either reset pointer or reopen file? 
 	fseek(fp, 0, SEEK_SET); //Resets file pointer
 	
 	// this copies the first course in each line onto courses
@@ -113,13 +112,12 @@ int main(){
 	}
 	
 	
-	//Now working on filling int array
-	// BC of this i now get a seg fault from above function of 
-		// copying onto string array. 
-		// if removed below function, function above works without seg-fault
+	//filling int array
+
 	int colum; 
 	int row; 
 	int current = 0;
+	int temp = 0;
 	char holder[maxStr];
 	fseek(fp, 0, SEEK_SET);
 	
@@ -142,14 +140,22 @@ int main(){
             }
             //printf(" \n Final result %s ",holder);
         }
-        printf(" \n Final result %s ",holder);
+        printf(" \n Final result %s  %d",holder,current);
+        temp = search(courses, holder); 
+        printf(" search %d \n ", temp);
         current++;
     }
 	
 	
 	
 	
+	
+	
+	
 	/*
+		// BC of this i now get a seg fault from above function of 
+		// copying onto string array. 
+		// if removed below function, function above works without seg-fault
 	for(int x = 0; x < lines; x++){
 		fgets(fileLine, maxLine, fp); 
 		token = strtok(fileLine, " "); 
