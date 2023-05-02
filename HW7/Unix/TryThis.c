@@ -2,107 +2,129 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_COURSES 100
+typedef struct Course {
+    char *name;
+    struct Course **prerequisites;
+    int prereq_count;
+} Course;
 
-typedef struct Course Course;
-struct Course {
-    char name[10];
-    int num_prereqs;
-    Course *prereqs[MAX_COURSES];
-    char color[6];
-};
+enum Color { WHITE, GRAY, BLACK };
 
-void DFS_visit(Course *G[], int u, Course *color[], Course *pred[], Course *black[], int *num_black) {
-    strcpy(color[u]->color, "gray");
-    for (int i = 0; i < G[u]->num_prereqs; i++) {
-        Course *v = G[u]->prereqs[i];
-        if (strcmp(v->color, "white") == 0) {
-            pred[v->name] = G[u];
-            DFS_visit(G, v->name, color, pred, black, num_black);
-        } else if (strcmp(v->color, "gray") == 0) {
-            printf("Cycle detected between courses %s and %s\n", G[u]->name, v->name);
-        }
-    }
-    strcpy(color[u]->color, "black");
-    black[*num_black] = G[u];
-    (*num_black)++;
-}
-
-void DFS(Course *G[], int n, Course *color[], Course *pred[], Course *black[], int *num_black) {
-    for (int i = 0; i < n; i++) {
-        strcpy(G[i]->color, "white");
-        pred[i] = NULL;
-    }
-    for (int i = 0; i < n; i++) {
-        if (strcmp(G[i]->color, "white") == 0) {
-            DFS_visit(G, i, color, pred, black, num_black);
-        }
-    }
-}
+void DFS(Course *courses, int course_count);
+void DFS_visit(Course *courses, int course_count, int u, enum Color *color, int *pred, int *finish, int *time);
 
 int main() {
-    char buffer[256];
-    Course *courses[MAX_COURSES];
-    Course *color[MAX_COURSES];
-    Course *pred[MAX_COURSES];
-    Course *black[MAX_COURSES];
-    int num_black = 0;
-    int num_courses = 0;
+    char filename[100];
+    printf("Enter the filename: ");
+    scanf("%s", filename);
 
-    FILE *fp = fopen("data.txt", "r");
-    if (fp == NULL) {
-        perror("Failed to open file");
-        return EXIT_FAILURE;
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error opening the file.\n");
+        return 1;
     }
 
-    while (fgets(buffer, sizeof(buffer), fp)) {
-        int len = strlen(buffer);
-        if (len > 0 && buffer[len - 1] == '\n') {
-            buffer[len - 1] = '\0';
-        }
+    Course *courses = NULL;
+    int course_count = 0;
+    char line[1000];
 
-        char *token = strtok(buffer, " ");
+    while (fgets(line, sizeof(line), file)) {
+        char *course_name = strtok(line, " \n");
         Course *course = malloc(sizeof(Course));
-        strcpy(course->name, token);
-        course->num_prereqs = 0;
-        course->color[0] = '\0';
+        course->name = strdup(course_name);
+        course->prerequisites = NULL;
+        course->prereq_count = 0;
 
-        while ((token = strtok(NULL, " "))) {
-            Course *prereq = malloc(sizeof(Course));
-            strcpy(prereq->name, token);
-            prereq->num_prereqs = 0;
-            prereq->color[0] = '\0';
-            course->prereqs[course->num_prereqs++] = prereq;
+        course_count++;
+        courses = realloc(courses, course_count * sizeof(Course));
+        courses[course_count - 1] = *course;
+
+        char *prereq_name;
+        while ((prereq_name = strtok(NULL, " \n")) != NULL) {
+            course->prereq_count++;
+            course->prerequisites = realloc(course->prerequisites, course->prereq_count * sizeof(Course *));
+            course->prerequisites[course->prereq_count - 1] = malloc(sizeof(Course));
+            course->prerequisites[course->prereq_count - 1]->name = strdup(prereq_name);
         }
-
-        courses[num_courses++] = course;
     }
 
-    fclose(fp);
+    fclose(file);
 
-    for (int i = 0; i < num_courses; i++) {
-    Course *course = courses[i];
-    for (int j = 0; j < course->num_prereqs; j++) {
-        char *name = course->prereqs[j]->name;
-        for (int k = 0; k < num_courses; k++) {
-            if (strcmp(courses[k]->name, name) == 0) {
-                courses[k]->prereqs[courses[k]->num_prereqs++] = course;
+    DFS(courses, course_count);
+
+    for (int i = 0; i < course_count; i++) {
+        free(courses[i].name);
+        for (int j = 0; j < courses[i].prereq_count; j++) {
+            free(courses[i].prerequisites[j]);
+        }
+        free(courses[i].prerequisites);
+    }
+    free(courses);
+
+    return 0;
+}
+
+void DFS(Course *courses, int course_count) {
+    enum Color *color = malloc(course_count * sizeof(enum Color));
+    int *pred = malloc(course_count * sizeof(int));
+    int *finish = malloc(course_count * sizeof(int));
+    int time = 0;
+
+    for (int u = 0; u < course_count; u++) {
+        color[u] = WHITE;
+        pred[u] = -1;
+    }
+
+    for (int u = 0; u < course_count; u++) {
+        if (color[u] == WHITE) {
+            DFS_visit(courses, course_count, u, color, pred, finish, &time);
+        }
+    }
+
+    printf("Topological Sort:\n");
+    for (int i = course_count - 1; i >= 0; i--) {
+        int index = -1;
+        int max_finish = -1;
+
+        for (int j = 0; j < course_count; j++) {
+            if (finish[j] > max_finish) {
+                max_finish = finish[j];
+                index = j;
+            }
+        }
+
+        if (index != -1) {
+            printf("%s\n", courses[index].name);
+            finish[index] = -1;
+       
+        }
+    }
+
+    free(color);
+    free(pred);
+    free(finish);
+}
+
+void DFS_visit(Course *courses, int course_count, int u, enum Color *color, int *pred, int *finish, int *time) {
+    color[u] = GRAY;
+    (*time)++;
+    
+    for (int i = 0; i < courses[u].prereq_count; i++) {
+        int y = -1;
+        
+        for (int j = 0; j < course_count; j++) {
+            if (strcmp(courses[u].prerequisites[i]->name, courses[j].name) == 0) {
+                y = j;
                 break;
             }
         }
+
+        if (y != -1 && color[y] == WHITE) {
+            pred[y] = u;
+            DFS_visit(courses, course_count, y, color, pred, finish, time);
+        }
     }
-}
-
-DFS(courses, num_courses, color, pred, black, &num_black);
-
-printf("Topological order:\n");
-for (int i = num_black - 1; i >= 0; i--) {
-    printf("%s\n", black[i]->name);
-}
-
-for (int i = 0; i < num_courses; i++) {
-    free(courses[i]);
-}
-
-return EXIT_SUCCESS;
+    
+    color[u] = BLACK;
+    finish[u] = ++(*time);
 }
